@@ -1,2 +1,1 @@
-# NanuqAssignment
-Programmer candidate assignment.
+# Nanuq Assignment
