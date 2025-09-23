@@ -1,8 +1,5 @@
 # Nanuq Assignment
 
-Third Party Package Used
-- UniTask - https://github.com/Cysharp/UniTask
-
 Free Assets Used
 - Ababil Bird Full Sprite - https://yudemgoy.itch.io/ababil-bird-full-sprite
 - Pastel Dream UI - https://toffeecraft.itch.io/ui-user-interface-pack-pastel-dream
