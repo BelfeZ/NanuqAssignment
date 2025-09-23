@@ -2,28 +2,34 @@ using UnityEngine;
 
 public class BackgroundScrolling : MonoBehaviour
 {
-    [Header("Parallax Material")]
-    [SerializeField] private GameObject camera;
-
     [Header("Parallax Configuration")]
+    [SerializeField] private float speed;
     [SerializeField] private float parallaxEffect;
 
-    private float length, startpos;
+    [Header("For testing")]
+    [SerializeField] private bool isPausing;
+
+    private float length, scroll;
+    private Vector3 startpos;
+
+    public void PauseBackground()
+    {
+        isPausing = true;
+    }
 
     void Start()
     {
-        startpos = transform.position.x;
+        startpos = transform.position;
         length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     private void FixedUpdate()
     {
-        float dist = (camera.transform.position += Vector3.right * Time.deltaTime).x * parallaxEffect;
-        float temp = camera.transform.position.x * (1 - parallaxEffect);
-
-        transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
-
-        if (temp > startpos + length) startpos += length;
-        else if (temp < startpos - length) startpos -= length;
+        if (!isPausing)
+        {
+            scroll += speed * parallaxEffect * Time.deltaTime;
+            float offset = Mathf.Repeat(scroll, length);
+            transform.position = startpos + Vector3.left * offset;
+        }
     }
 }
