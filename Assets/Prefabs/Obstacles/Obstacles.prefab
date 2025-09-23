@@ -138,6 +138,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Top_Obstacle
       objectReference: {fileID: 0}
+    - target: {fileID: 4885039699860729558, guid: 7e55beddb1ab6ef4da83ff49948ff108, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885039699860729558, guid: 7e55beddb1ab6ef4da83ff49948ff108, type: 3}
+      propertyPath: m_Color.g
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885039699860729558, guid: 7e55beddb1ab6ef4da83ff49948ff108, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885039699860729558, guid: 7e55beddb1ab6ef4da83ff49948ff108, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5687628663270379918, guid: 7e55beddb1ab6ef4da83ff49948ff108, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.2721
@@ -239,6 +255,22 @@ PrefabInstance:
     - target: {fileID: 2807092170418361142, guid: b1b7293c02aad194d88af970e81b0716, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486546233021069516, guid: b1b7293c02aad194d88af970e81b0716, type: 3}
+      propertyPath: m_Color.b
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486546233021069516, guid: b1b7293c02aad194d88af970e81b0716, type: 3}
+      propertyPath: m_Color.g
+      value: 0.34901962
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486546233021069516, guid: b1b7293c02aad194d88af970e81b0716, type: 3}
+      propertyPath: m_Color.r
+      value: 0.61960787
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486546233021069516, guid: b1b7293c02aad194d88af970e81b0716, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
