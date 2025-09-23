@@ -5,7 +5,7 @@ public class BackgroundScrolling : MonoBehaviour
     [Header("Parallax Configuration")]
     [SerializeField] private float speed;
     [SerializeField] private float parallaxEffect;
-    [Space(8)]
+
     [Header("For testing")]
     [SerializeField] private bool isPausing;
 

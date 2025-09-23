@@ -4,16 +4,22 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Obstacle Material")]
-    [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private TextMeshProUGUI scoreText;
 
-    [Header("Obstacle Configuration")]
+    [Header("Obstacle Configurations")]
     [SerializeField] private float spawnRate = 1f;
     [SerializeField] private float minHeight = -1f;
     [SerializeField] private float maxHeight = 1f;
 
-    [Header("Background Material (For pausing background)")]
+    [Header("Difficulty Configurations")]
+    [SerializeField] private float increaseSpawnRate = 0.2f;
+    [SerializeField] private int scorePerThreshold = 10;
+    [SerializeField] private float maximumSpawnRate = 1f;
+
+    [Header("Obstacle Materials")]
+    [SerializeField] private GameObject obstaclePrefab;
+    [SerializeField] private TextMeshProUGUI scoreText;
+
+    [Header("Background Material (For pausing backgrounds)")]
     [SerializeField] private List<BackgroundScrolling> backgrounds;
 
     private int score = 0;
@@ -36,10 +42,19 @@ public class GameManager : MonoBehaviour
         Instantiate(obstaclePrefab, spawnpos, Quaternion.identity);
     }
 
+    private void IncreaseDifficulty()
+    {
+        if (spawnRate - increaseSpawnRate >= maximumSpawnRate) spawnRate = spawnRate - increaseSpawnRate;
+
+        else spawnRate = maximumSpawnRate;
+    }
+
     public void IncreaseScore()
     {
         score++;
         scoreText.text = $"Score : {score}";
+
+        if(score % scorePerThreshold == 0) IncreaseDifficulty();
     }
 
     public void GameOver()

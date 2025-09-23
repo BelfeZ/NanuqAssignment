@@ -7,6 +7,11 @@ public class MainmenuManager : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject highscorePanel;
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     public void StartButton()
     {
         SceneManager.LoadScene("Game");
