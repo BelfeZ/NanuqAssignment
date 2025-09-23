@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
 
     void Update()
-    {
+    { 
         if (isPlaying && Input.GetMouseButtonDown(0))
         {
             direction = Vector3.up * playerFlyStrength;
@@ -25,6 +25,13 @@ public class PlayerController : MonoBehaviour
             direction.y += playerGravity * Time.deltaTime;
             transform.position += direction * Time.deltaTime;
         }
+    }
+
+    public void ChangePlayerState()
+    {
+        if(Time.timeScale == 0) isPlaying = false;
+
+        else if(Time.timeScale == 1) isPlaying = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

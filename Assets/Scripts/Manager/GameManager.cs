@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Time.timeScale = 0f;
+        PauseGame();
         tutorialPanel.gameObject.SetActive(true);
     }
 
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartCountdown()
     {
         int countdown = countsdownTime;
-        Time.timeScale = 0f;
         countsdownText.text = $"{countdown}";
         yield return new WaitForSecondsRealtime(1f);
 
@@ -69,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
 
         countsdownText.gameObject.SetActive(false);
-        Time.timeScale = 1f;
+        ResumeGame();
         InvokeRepeating(nameof(SpawnObstacle), spawnRateInterval, spawnRateInterval);
         isPausing = false;
     }
@@ -95,6 +94,18 @@ public class GameManager : MonoBehaviour
     private void PauseGame()
     {
         Time.timeScale = 0f;
+        PlayerController playerController = FindAnyObjectByType<PlayerController>();
+
+        if (playerController != null) playerController.ChangePlayerState();
+
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        PlayerController playerController = FindAnyObjectByType<PlayerController>();
+
+        if (playerController != null) playerController.ChangePlayerState();
     }
 
     public void IncreaseScore()
@@ -138,7 +149,7 @@ public class GameManager : MonoBehaviour
     public void CloseTutorial()
     {
         SoundManager.instance.PlayVfx(0);
-        Time.timeScale = 0f;
+        PauseGame();
         tutorialPanel.gameObject.SetActive(false);
         StartCoroutine(StartCountdown());
     }
@@ -147,7 +158,7 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.instance.PlayVfx(0);
         isPausing = true;
-        Time.timeScale = 0f;
+        PauseGame();
         menuPanel.gameObject.SetActive(true);
     }
 
@@ -155,7 +166,7 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.instance.PlayVfx(0);
         isPausing = false;
-        Time.timeScale = 1f;
+        ResumeGame();
         menuPanel.gameObject.SetActive(false);
     }
 
