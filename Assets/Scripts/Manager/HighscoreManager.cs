@@ -17,13 +17,21 @@ public class HighscoreManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    public void CheckHighScore(int score)
+    public bool CalculateHighScore(int score)
     {
-        if(score > currentHighscore) currentHighscore = score;
+        currentHighscore = PlayerPrefs.GetInt("High Score", 0);
+        if (score > currentHighscore) 
+        {
+            currentHighscore = score;
+            PlayerPrefs.SetInt("High Score", currentHighscore);
+            return true;
+        }
+        return false;
     }
 
     public int GetHighScore()
     {
+        currentHighscore = PlayerPrefs.GetInt("High Score", 0);
         return currentHighscore;
     }
 }

@@ -7,14 +7,14 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     [Header("Obstacle Configurations")]
-    [SerializeField] private float spawnRate = 1f;
+    [SerializeField] private float spawnRateInterval = 5f;
     [SerializeField] private float minHeight = -1f;
     [SerializeField] private float maxHeight = 1f;
 
     [Header("Difficulty Configurations")]
-    [SerializeField] private float increaseSpawnRate = 0.2f;
+    [SerializeField] private float increaseSpawnRate = 0.3f;
     [SerializeField] private int scorePerThreshold = 10;
-    [SerializeField] private float maximumSpawnRate = 1f;
+    [SerializeField] private float maximumSpawnRateInterval = 0.8f;
 
     [Header("GUI Configurations")]
     [SerializeField] private int countsdownTime = 3;
@@ -29,13 +29,19 @@ public class GameManager : MonoBehaviour
     [Header("GUI Materials")]
     [SerializeField] private TextMeshProUGUI countsdownText;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TextMeshProUGUI highscoreText;
+    [SerializeField] private TextMeshProUGUI newText;
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private GameObject menuPanel;
 
     private int score = 0;
     private List<ObstaclesController> obstacles = new List<ObstaclesController>();
+    private bool isPausing = true;
 
     private void OnEnable()
     {
-        StartCoroutine(StartCountdown());
+        PauseGame();
+        tutorialPanel.gameObject.SetActive(true);
     }
 
     private void OnDisable()
@@ -43,12 +49,18 @@ public class GameManager : MonoBehaviour
         CancelInvoke(nameof(SpawnObstacle));
     }
 
+    void Update()
+    {
+        if (!isPausing && Input.GetKeyDown(KeyCode.Escape)) PauseButton();
+    }
+
     private IEnumerator StartCountdown()
     {
         int countdown = countsdownTime;
-        Time.timeScale = 0f;
+        countsdownText.text = $"{countdown}";
+        yield return new WaitForSecondsRealtime(1f);
 
-        while(countdown > 0)
+        while (countdown > 0)
         {
             countsdownText.text = $"{countdown}";
             yield return new WaitForSecondsRealtime(1f);
@@ -56,8 +68,9 @@ public class GameManager : MonoBehaviour
         }
 
         countsdownText.gameObject.SetActive(false);
-        Time.timeScale = 1f;
-        InvokeRepeating(nameof(SpawnObstacle), spawnRate, spawnRate);
+        ResumeGame();
+        InvokeRepeating(nameof(SpawnObstacle), spawnRateInterval, spawnRateInterval);
+        isPausing = false;
     }
 
     private void SpawnObstacle()
@@ -70,9 +83,29 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseDifficulty()
     {
-        if (spawnRate - increaseSpawnRate >= maximumSpawnRate) spawnRate = spawnRate - increaseSpawnRate;
+        if (spawnRateInterval - increaseSpawnRate >= maximumSpawnRateInterval) spawnRateInterval = spawnRateInterval - increaseSpawnRate;
 
-        else spawnRate = maximumSpawnRate;
+        else spawnRateInterval = maximumSpawnRateInterval;
+
+        CancelInvoke(nameof(SpawnObstacle));
+        InvokeRepeating(nameof(SpawnObstacle), spawnRateInterval, spawnRateInterval);
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0f;
+        PlayerController playerController = FindAnyObjectByType<PlayerController>();
+
+        if (playerController != null) playerController.ChangePlayerState();
+
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        PlayerController playerController = FindAnyObjectByType<PlayerController>();
+
+        if (playerController != null) playerController.ChangePlayerState();
     }
 
     public void IncreaseScore()
@@ -96,7 +129,10 @@ public class GameManager : MonoBehaviour
         }
 
         CancelInvoke(nameof(SpawnObstacle));
+        bool isNewHighscore = HighscoreManager.instance.CalculateHighScore(score);
         yield return new WaitForSecondsRealtime(1.5f);
+        highscoreText.text = $"{HighscoreManager.instance.GetHighScore()}";
+        if(isNewHighscore) newText.gameObject.SetActive(true);
         gameOverPanel.gameObject.SetActive(true);
     }
 
@@ -110,13 +146,39 @@ public class GameManager : MonoBehaviour
         obstacles.Remove(obs);
     }
 
+    public void CloseTutorial()
+    {
+        SoundManager.instance.PlayVfx(0);
+        PauseGame();
+        tutorialPanel.gameObject.SetActive(false);
+        StartCoroutine(StartCountdown());
+    }
+
+    public void PauseButton()
+    {
+        SoundManager.instance.PlayVfx(0);
+        isPausing = true;
+        PauseGame();
+        menuPanel.gameObject.SetActive(true);
+    }
+
+    public void ResumeButton()
+    {
+        SoundManager.instance.PlayVfx(0);
+        isPausing = false;
+        ResumeGame();
+        menuPanel.gameObject.SetActive(false);
+    }
+
     public void RestartButton()
     {
+        SoundManager.instance.PlayVfx(0);
         SceneManager.LoadScene("Game");
     }
 
     public void MenuButton()
     {
+        SoundManager.instance.PlayVfx(0);
         SceneManager.LoadScene("MainMenu");
     }
 }
