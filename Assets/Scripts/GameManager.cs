@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float spawnRate = 1f;
     [SerializeField] private float minHeight = -1f;
     [SerializeField] private float maxHeight = 1f;
+
+    [Header("Background Material (For pausing background)")]
+    [SerializeField] private List<BackgroundScrolling> backgrounds;
 
     private int score = 0;
 
@@ -40,6 +44,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        foreach (BackgroundScrolling obj in backgrounds)
+        {
+            obj.PauseBackground();
+        }
+
         Debug.Log("Dead");
     }
 }

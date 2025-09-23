@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class BackgroundScrolling : MonoBehaviour
 {
-    //[Header("Parallax Material")]
-    //[SerializeField] private GameObject camera;
-
     [Header("Parallax Configuration")]
     [SerializeField] private float speed;
     [SerializeField] private float parallaxEffect;
-    [Space(5)]
+    [Space(8)]
+    [Header("For testing")]
     [SerializeField] private bool isPausing;
 
     private float length, scroll;
     private Vector3 startpos;
+
+    public void PauseBackground()
+    {
+        isPausing = true;
+    }
 
     void Start()
     {
