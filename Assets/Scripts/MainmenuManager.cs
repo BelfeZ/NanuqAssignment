@@ -28,7 +28,7 @@ public class MainmenuManager : MonoBehaviour
 
     public void HighscoreButton()
     {
-        highscoreText.text = $"{HighscoreManager.instance.GetHighScore()}";
+        highscoreText.text = $"{PlayerPrefs.GetInt("Max Score", 0)}";
         menuPanel.gameObject.SetActive(false);
         highscorePanel.gameObject.SetActive(true);
     }
