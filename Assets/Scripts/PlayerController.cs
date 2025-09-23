@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player Status (For pausing player)")]
-    [SerializeField] private bool isPlaying;
-
     [Header("Player Configuration")]
     [SerializeField] private float playerGravity;
     [SerializeField] private float playerFlyStrength;
+
+    [Header("Player Status (For pausing player)")]
+    [SerializeField] private bool isPlaying;
 
     private Vector3 direction;
 
