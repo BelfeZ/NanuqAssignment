@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Status (For pausing player)")]
     [SerializeField] private bool isPlaying;
+    [SerializeField] private Animator playerAnimator;
 
     private Vector3 direction;
 
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle") 
         {
             isPlaying = false;
+            playerAnimator.SetTrigger("dead");
             FindAnyObjectByType<GameManager>().StartCoroutine(FindAnyObjectByType<GameManager>().GameOver());
         }
 

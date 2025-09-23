@@ -31,13 +31,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI highscoreText;
     [SerializeField] private TextMeshProUGUI newText;
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private GameObject menuPanel;
 
     private int score = 0;
     private List<ObstaclesController> obstacles = new List<ObstaclesController>();
+    private bool isPausing = true;
 
     private void OnEnable()
     {
-        StartCoroutine(StartCountdown());
+        Time.timeScale = 0f;
+        tutorialPanel.gameObject.SetActive(true);
     }
 
     private void OnDisable()
@@ -45,10 +49,16 @@ public class GameManager : MonoBehaviour
         CancelInvoke(nameof(SpawnObstacle));
     }
 
+    void Update()
+    {
+        if (!isPausing && Input.GetKeyDown(KeyCode.Escape)) PauseButton();
+    }
+
     private IEnumerator StartCountdown()
     {
         int countdown = countsdownTime;
         Time.timeScale = 0f;
+        countsdownText.text = $"{countdown}";
         yield return new WaitForSecondsRealtime(1f);
 
         while (countdown > 0)
@@ -61,6 +71,7 @@ public class GameManager : MonoBehaviour
         countsdownText.gameObject.SetActive(false);
         Time.timeScale = 1f;
         InvokeRepeating(nameof(SpawnObstacle), spawnRateInterval, spawnRateInterval);
+        isPausing = false;
     }
 
     private void SpawnObstacle()
@@ -79,6 +90,11 @@ public class GameManager : MonoBehaviour
 
         CancelInvoke(nameof(SpawnObstacle));
         InvokeRepeating(nameof(SpawnObstacle), spawnRateInterval, spawnRateInterval);
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0f;
     }
 
     public void IncreaseScore()
@@ -117,6 +133,27 @@ public class GameManager : MonoBehaviour
     public void UnregisterObstacle(ObstaclesController obs)
     {
         obstacles.Remove(obs);
+    }
+
+    public void CloseTutorial()
+    {
+        Time.timeScale = 0f;
+        tutorialPanel.gameObject.SetActive(false);
+        StartCoroutine(StartCountdown());
+    }
+
+    public void PauseButton()
+    {
+        isPausing = true;
+        Time.timeScale = 0f;
+        menuPanel.gameObject.SetActive(true);
+    }
+
+    public void ResumeButton()
+    {
+        isPausing = false;
+        Time.timeScale = 1f;
+        menuPanel.gameObject.SetActive(false);
     }
 
     public void RestartButton()
