@@ -10,6 +10,7 @@ public class ObstaclesController : MonoBehaviour
     void Start()
     {
         leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f;
+        FindAnyObjectByType<GameManager>().RegisterObstacle(this);
     }
 
     void Update()
@@ -18,7 +19,13 @@ public class ObstaclesController : MonoBehaviour
 
         if(transform.position.x < leftEdge)
         {
+            FindAnyObjectByType<GameManager>().UnregisterObstacle(this);
             Destroy(gameObject);
         }
+    }
+
+    public void StopObstacle()
+    {
+        speed = 0f;
     }
 }
