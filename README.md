@@ -16,8 +16,8 @@ This genre mostly have very least button and simple. So i choose to be simple bu
 
 **Code Architecture**
 
-This type of game mostly have a lot of numbers to use in script. For example is Jump Stregth, gravity or Obstacles spawn rate. This project have avoid a lot of magic number and can edit configuration inside unity editor easily. (This project have lock at 60 framerate to make game logic smooth as possible.) This project also using Instance Singleton and handle safely.
-The save system this game using is Playerpref because this game doesn't save a lot of detail (only high score.) so that why this project is using Playerpref system.
+This type of game mostly have a lot of numbers to use in script. For example is Jump Stregth, gravity or Obstacles spawn rate. This project is designed to avoid using magic numbers and can edit configuration inside unity editor easily. (This project locked at 60 FPS)
+The save system this game is used Playerpref because this game doesn't save a lot of detail (only high score.) so that why this project is using Playerpref system.
 
 **Asset Management**
 
