@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
 
     public void CloseTutorial()
     {
+        SoundManager.instance.PlayVfx(0);
         Time.timeScale = 0f;
         tutorialPanel.gameObject.SetActive(false);
         StartCoroutine(StartCountdown());
@@ -144,6 +145,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseButton()
     {
+        SoundManager.instance.PlayVfx(0);
         isPausing = true;
         Time.timeScale = 0f;
         menuPanel.gameObject.SetActive(true);
@@ -151,6 +153,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeButton()
     {
+        SoundManager.instance.PlayVfx(0);
         isPausing = false;
         Time.timeScale = 1f;
         menuPanel.gameObject.SetActive(false);
@@ -158,11 +161,13 @@ public class GameManager : MonoBehaviour
 
     public void RestartButton()
     {
+        SoundManager.instance.PlayVfx(0);
         SceneManager.LoadScene("Game");
     }
 
     public void MenuButton()
     {
+        SoundManager.instance.PlayVfx(0);
         SceneManager.LoadScene("MainMenu");
     }
 }

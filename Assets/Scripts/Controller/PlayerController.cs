@@ -14,7 +14,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isPlaying && Input.GetMouseButtonDown(0)) direction = Vector3.up * playerFlyStrength;
+        if (isPlaying && Input.GetMouseButtonDown(0))
+        {
+            direction = Vector3.up * playerFlyStrength;
+            SoundManager.instance.PlayRandomJumpVfx();
+        }
 
         if (isPlaying)
         {
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle") 
         {
             isPlaying = false;
+            SoundManager.instance.PlayVfx(1);
             playerAnimator.SetTrigger("dead");
             FindAnyObjectByType<GameManager>().StartCoroutine(FindAnyObjectByType<GameManager>().GameOver());
         }
