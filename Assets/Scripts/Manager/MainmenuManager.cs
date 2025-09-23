@@ -10,6 +10,8 @@ public class MainmenuManager : MonoBehaviour
     [Header("Menu Materials")]
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject highscorePanel;
+    [SerializeField] private GameObject SoundOffButton;
+    [SerializeField] private GameObject SoundOnButton;
 
     private void Awake()
     {
@@ -41,6 +43,22 @@ public class MainmenuManager : MonoBehaviour
         SoundManager.instance.PlayVfx(0);
         menuPanel.gameObject.SetActive(true);
         highscorePanel.gameObject.SetActive(false);
+    }
+
+    public void ToggleSoundButton(bool close)
+    {
+        if (close) 
+        {
+            SoundManager.instance.MuteSounds(true);
+            SoundOffButton.gameObject.SetActive(false);
+            SoundOnButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            SoundManager.instance.MuteSounds(false);
+            SoundOffButton.gameObject.SetActive(true);
+            SoundOnButton.gameObject.SetActive(false);
+        }
     }
 
     public void ExitButton()

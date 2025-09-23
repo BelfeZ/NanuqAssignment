@@ -44,4 +44,10 @@ public class SoundManager : MonoBehaviour
         int random = Random.Range(0, jumpSoundList.Length);
         vfx.PlayOneShot(jumpSoundList[random]);
     }
+
+    public void MuteSounds(bool mute)
+    {
+        bgm.mute = mute;
+        vfx.mute = mute;
+    }
 }
