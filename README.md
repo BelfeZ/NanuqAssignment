@@ -14,7 +14,7 @@ The GDD need **Main Menu, In-Game, Game Over** so i decide to use 2 scenes to op
 
 This genre mostly have very least button and simple. So i choose to be simple but rich with good UX also. This project will have tutorial for player and have very least button to press.
 
-*Code Architecture*
+**Code Architecture**
 
 This type of game mostly have a lot of numbers to use in script. For example is Jump Stregth, gravity or Obstacles spawn rate. This project have avoid a lot of magic number and can edit configuration inside unity editor easily. (This project have lock at 60 framerate to make game logic smooth as possible.) This project also using Instance Singleton and handle safely.
 The save system this game using is Playerpref because this game doesn't save a lot of detail (only high score.) so that why this project is using Playerpref system.
@@ -26,6 +26,10 @@ This project asset has very limited choice to use so the graphic of this project
 **Unity Version**
 
 This project unity vesion is **Unity 6.0 (6000.0.58f1) LTS**
+
+**Build & Test**
+
+This project have created for both Window platform and Android IOS platform. This project already tested in Window platform.
 
 # Free Assets Used
 - Ababil Bird Full Sprite - https://yudemgoy.itch.io/ababil-bird-full-sprite
