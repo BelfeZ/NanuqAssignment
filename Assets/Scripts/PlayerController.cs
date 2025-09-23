@@ -21,4 +21,17 @@ public class PlayerController : MonoBehaviour
             transform.position += direction * Time.deltaTime;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle") 
+        { 
+            FindAnyObjectByType<GameManager>().GameOver(); 
+        }
+
+        if (collision.gameObject.tag == "Score")
+        {
+            FindAnyObjectByType<GameManager>().IncreaseScore();
+        }
+    }
 }
